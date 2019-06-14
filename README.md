@@ -87,7 +87,7 @@ Navigate to the start directory to continue with the guide:
 cd ../start
 ```
 
-## Step 3 - Acquiring Watson Tone Analyser Dependencies with Gradle
+## Step 2 - Acquiring Watson Tone Analyser Dependencies with Gradle
 
 Before you can start programming with the Watson Tone Analyser service, you need to acquire the Watson Tone Analyser libraries for use in our application using Gradle. If you are unfamiliar with Gradle, please refer to [this guide](https://openliberty.io/guides/gradle-intro.html).
 
@@ -104,7 +104,7 @@ repositories block.
 You may have noticed the other dependencies which are already present within the **build.gradle** file. These are required later on within our application. Please do
 not remove any of these.
 
-## Step 4 - Creating the Analyser Class
+## Step 3 - Creating the Analyser Class
 
 Now, you can begin writing code to call your Watson Tone Analyser service instance which we created in step 2. We will create one class using CDI, and within this class, we will have four fields, an authentication method (to authenticate with our Watson Tone Analyser instance!), and a method to return a tone analysis of an input string.
 
@@ -263,7 +263,7 @@ Since we're using CDI, you need to add this feature to our Open Liberty server. 
 You may also notice that we've included the `servlet-4.0` and `jsp-2.3` features. These are required, and will be explained later. We've added them so you don't have to.
 
 
-## Step 5 - Creating the Front End
+## Step 4 - Creating the Front End
 
 Now that you have the logic in place to authenticate, and analyse text with your Watson Tone Analyser instance, it would be nice to display this information to a webpage.
 
@@ -380,7 +380,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 Usually, we would have to add the repository containing the servlet libraries in our `build.gradle` file, and update the `server.xml` to enable the Java servlet feature. Although, since you updated the `build.gradle` file earlier for Watson libraries, and updated the `server.xml` to include the CDI feature, the necessary dependencies have been included for you.
 
 
-## Step 6 - Connecting and Configuring the Front-End
+## Step 5 - Connecting and Configuring the Front-End
 
 The final thing to do, is make the server aware of your servlet and webpage. This has already been done for you, in the `web.xml` file, located at `src/main/webapp/`.
 
