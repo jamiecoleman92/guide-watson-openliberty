@@ -2,7 +2,7 @@
 
 ### What you'll learn
 
-You will learn how to build and deploy an instance of the Watson Tone Analyser service deployed on Open Liberty. It will be built with Gradle and served up on a front-end web
+You will learn how to build and deploy an instance of the Watson Tone Analyser service on IBM Cloud, and access this within your application hosted on IBM Open Liberty. It will be built with Gradle and served up on a front-end web
 application connected to a Java EE backend, using servlets and CDI.
 
 You will submit sentence(s) to be analysed by Watson into the front-end of the application, which the Java backend will make a GET request to your instance of the Watson Tone Analyser Service.
@@ -13,33 +13,33 @@ This request returns a JSON representation of the tones identified within the in
 This contains information about the tones identified within your input, such as ‘Analytical’, ‘Anger’, ‘Joy’. These are rated from zero to one, and only the tones with scores greater than 0.5 are returned.
 A score greater than 0.75 indicates a high likelihood that the tone is perceived in the content.
 
-##### Overview of Watson Tone Analyser
+### Overview of Watson Tone Analyser
 
 The IBM Watson™ Tone Analyser service uses linguistic analysis to detect emotional and language tones in written text. You can use the service to understand how your written communications are perceived and then to improve the tone of your communications. Businesses can use the service to learn the tone of their customers' communications and to respond to each customer appropriately, or to understand and improve their customer conversations.
 
 Follow [this link](https://tone-analyzer-demo.ng.bluemix.net/?cm_mc_uid=17025728856915591373241&cm_mc_sid_50200000=75962731560158357593&cm_mc_sid_52640000=35883971560158357617) for example use cases and more information about the analyser.
 
-### Prerequisites
+## Prerequisites
 
-#### Configuring the Watson Tone Analyser Service Instance
+### Configuring the Watson Tone Analyser Service Instance
 
-Before you can this tutorial, you need to create an instance of the **Watson Tone Analyser** service on your **IBM Cloud** account.
+Before you can start this tutorial, you need to create an instance of the **Watson Tone Analyser** service on your **IBM Cloud** account.
 
-##### To create an instance of the Tone Analyser service:
+#### To create an instance of the Tone Analyser service:
 1.	Go to the [Tone Analyser](https://cloud.ibm.com/catalog/services/tone-analyzer) page in the IBM Cloud Catalogue.
 2.	Sign up for a free IBM Cloud account or login.
 3.	Assign the service name to **Tone Analyser Open Liberty**.
 4.	Set the region to **London**.
 5.	Click Create.
 
-##### Copy the credentials to authenticate to your Tone Analyser service instance
+#### Copy the credentials to authenticate to your Tone Analyser service instance
 1. Within your [IBM Cloud dashboard](https://cloud.ibm.com/resources), underneath services, select **Tone Analyser Open Liberty**.
 2. Select the Manage tab on the left of the screen if it is not already selected.
 3. Copy the API Key and URL values for later use.
 
 
 
-### Step 1 - Getting Started
+## Step 1 - Getting Started
 
 The fastest way to work through this guide is to clone the Git repository and use the projects that are provided inside:
 
@@ -52,7 +52,7 @@ The start directory contains the starting project that you will build upon.
 
 The finish directory contains the finished project that you will build.
 
-##### Try what you’ll build
+#### Try what you’ll build
 
 The `/finish` directory in the root of this guide contains the finished application. Give it a try before you proceed.
 
@@ -87,7 +87,7 @@ Navigate to the start directory to continue with the guide:
 cd ../start
 ```
 
-### Step 3 - Acquiring Watson Tone Analyser Dependencies with Gradle
+## Step 3 - Acquiring Watson Tone Analyser Dependencies with Gradle
 
 Before you can start programming with the Watson Tone Analyser service, you need to acquire the Watson Tone Analyser libraries for use in our application using Gradle. If you are unfamiliar with Gradle, please refer to [this guide](https://openliberty.io/guides/gradle-intro.html).
 
@@ -104,7 +104,7 @@ repositories block.
 You may have noticed the other dependencies which are already present within the **build.gradle** file. These are required later on within our application. Please do
 not remove any of these.
 
-### Step 4 - Creating the Analyser Class
+## Step 4 - Creating the Analyser Class
 
 Now, you can begin writing code to call your Watson Tone Analyser service instance which we created in step 2. We will create one class using CDI, and within this class, we will have four fields, an authentication method (to authenticate with our Watson Tone Analyser instance!), and a method to return a tone analysis of an input string.
 
@@ -154,13 +154,13 @@ public class Analyser {
 }
 ```
 
-#### Code Walkthrough
+### Code Walkthrough
 
-##### Class Annotation
+#### Class Annotation
 `@ApplicationScoped` ensures that only one instance of our `Analyser` class exists at runtime, and can be injected into our
 front-end code later on.
 
-##### Fields
+#### Fields
 These are required to connect to your specific Watson Tone Analyser service.
 
 - `apiKey` : IBM Cloud uses Identity and Access Management (IAM) - passing in the value of your API key enables you to access your service instance.
@@ -168,7 +168,7 @@ These are required to connect to your specific Watson Tone Analyser service.
 - `endpoint` : The location where your Watson Tone Analyser service instance is hosted.
 - `toneAnalyser` : an instance of the ToneAnalyser type. This will be initialised in the authenticate method and used when analysing input.
 
-##### Authenticate Method
+#### Authenticate Method
 Now that we have the data required to authenticate with our Watson Tone Analyser service, you need to initialise your `toneAnalyser` object to point to your Watson Tone Analysis service instance.
 
 ```Java
@@ -194,7 +194,7 @@ public void authenticate() {
 
 - Your `toneAnalyser` object then needs its endpoint set to the location where your service is hosted. This is where it will send/receive requests to/from Watson.
 
-##### AnalyseInput Method
+#### AnalyseInput Method
 Finally, you need a method to send your input data to Watson and receive an analysis of the input. To do this, you are going to create the analyse input method.
 From the method signature, you can see that it takes your input sentence(s) to be analysed as a string argument, and returns an object with the type of `ToneAnalysis`.
 
@@ -237,7 +237,7 @@ public ToneAnalysis analyseInput(String input) {
 
 - The Watson Tone Analyser service returns HTTP response codes to indicate success or failure. Note the `Request Too Large (413)` exception - the example application is designed for relatively small input. If you want to process larger input, use the POST method, described in [the documentation](https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-utgpe#using-the-general-purpose-endpoint)
 
-##### Update server.xml
+#### Update server.xml
 
 For those unfamiliar with the server.xml file, this contains configuration data about your server, such as the name, description, Java EE features enabled on the server, and ports which the server runs on.
 
@@ -263,13 +263,13 @@ Since we're using CDI, you need to add this feature to our Open Liberty server. 
 You may also notice that we've included the `servlet-4.0` and `jsp-2.3` features. These are required, and will be explained later. We've added them so you don't have to.
 
 
-### Step 5 - Creating the Front End
+## Step 5 - Creating the Front End
 
 Now that you have the logic in place to authenticate, and analyse text with your Watson Tone Analyser instance, it would be nice to display this information to a webpage.
 
 A way of connecting Java backend to a front-end webpage in Open Liberty can be done using servlets. If you are not familiar with servlets, a brief explanation is that they can be used to interact with a back-end Java server, by receiving and responding to HTTP requests from front-end web clients.
 
-##### The Webpage
+#### The Webpage
 
 Within our application, we will use a `.jsp` (JavaServerPage) file for our front-end. For reference, a `.jsp` file is a HTML webpage which contains Java code and is parsed as a HTML file by the server. It enables us to add complex logic into HTML webpages - for example, dynamically creating a webpage based on the content returned from a call to your Java server. You can learn more about `.jsp` files [here](http://www.jsptut.com/). Don’t worry, we won't make you write it - the `index.jsp` file is provided for you at `src/main/webapp/` directory, and the feature for `.jsp` files is already included in your `server.xml`.
 
@@ -287,7 +287,7 @@ As you can see from the form attributes, submitting this form calls a **GET** re
 this endpoint does not exist at the moment.
 
 
-##### The Servlet
+#### The Servlet
 So, you have a webpage, which makes requests to an endpoint, once this endpoint is hit, we want to call our `Analyser` class’ methods to call your Watson Tone Analyser service instance.
 
 Create a class called `ToneServlet`, in the directory `src/main/java/io/openliberty/guides/watson/toneanalyser/`
@@ -330,18 +330,18 @@ public class ToneServlet extends HttpServlet {
 }
 ```
 
-#### Code Walkthrough
+### Code Walkthrough
 
-##### Class Annotation
+#### Class Annotation
 `@WebServlet(url)` identifies the endpoint the servlet is served at.
 
-##### Fields
+#### Fields
 These are required to connect to your specific Watson Tone Analyser service.
 
 - `toneAnalyser` : The injected CDI object of your `Analyser` class.
 - `serialVersionUID` : This is required as servlet is a serialisable class. Don't worry about this.
 
-##### doGet Method
+#### doGet Method
 
 `doGet()` is a method which overrides the default `doGet()` method of the servlet. This is called when the endpoint,
 specified on the class annotation, is called with a HTTP **GET** method. When this is done, we want to our `Analyser` to
@@ -380,7 +380,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
 Usually, we would have to add the repository containing the servlet libraries in our `build.gradle` file, and update the `server.xml` to enable the Java servlet feature. Although, since you updated the `build.gradle` file earlier for Watson libraries, and updated the `server.xml` to include the CDI feature, the necessary dependencies have been included for you.
 
 
-### Step 6 - Connecting and Configuring the Front-End
+## Step 6 - Connecting and Configuring the Front-End
 
 The final thing to do, is make the server aware of your servlet and webpage. This has already been done for you, in the `web.xml` file, located at `src/main/webapp/`.
 
@@ -403,7 +403,7 @@ The final thing to do, is make the server aware of your servlet and webpage. Thi
 - **servlet**: Any servlets to be served by the application are defined like this, they are assigned a name, and the path to the class is associated with the servlet.
 - **servlet-mapping**: This maps a servlet to a URL, by taking the servlet name defined in the **servlet** block, and a url pattern, affixed to the end of the default endpoint. In this case, it's http://localhost:9080/ToneAnalyser/anaylseinput.
 
-### Step 7 - Building and Running the ApplicationScoped
+## Step 7 - Building and Running the ApplicationScoped
 The application is now complete, so navigate to the `start/` directory, and execute the following Gradle commands to **build** and **launch** the application on **Open Liberty**:
 
 ```
