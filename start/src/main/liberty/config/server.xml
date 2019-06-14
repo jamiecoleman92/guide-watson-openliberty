@@ -1,0 +1,10 @@
+<server description="Open Liberty Tone Analyser">
+    <featureManager>
+        <feature>servlet-4.0</feature>
+        <feature>jsp-2.3</feature>
+    </featureManager>
+	
+    <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"  host="*" />
+
+    <webApplication id="ToneAnalyser" location="ToneAnalyser.war" contextRoot="${app.context.root}" />
+</server>
