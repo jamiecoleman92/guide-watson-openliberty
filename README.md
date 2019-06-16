@@ -61,7 +61,7 @@ To try out the application, you must first go to the finish directory and edit t
 be equal to the values you copied from the credentials from the **IBM Cloud dashboard**.
 
 ```Java
-  private String apiKey = /*Insert your Watson Tone Service API key here!*/
+  private String apiKey = /*Insert your Watson Tone Service API key here!*/;
   private String endpoint = /*Insert your Watson Tone Service URL here!*/;
 ```
 
@@ -125,7 +125,7 @@ Create a class called `Analyser`, in the directory `/src/main/java/io/openlibert
 public class Analyser {
 
 	// fields to authenticate with the service
-	private String apiKey = /*Insert your Watson Tone Service API key here!*/
+	private String apiKey = /*Insert your Watson Tone Service API key here!*/;
 	private String version = "2017-09-21";
 	private String endpoint = /*Insert your Watson Tone Service URL here!*/;
 
