@@ -61,14 +61,15 @@ To try out the application, you must first go to the finish directory and edit t
 be equal to the values you copied from the credentials from the **IBM Cloud dashboard**.
 
 ```Java
-  private String apiKey = /*Insert your Watson Tone Service API key here!*/
+  private String apiKey = /*Insert your Watson Tone Service API key here!*/;
   private String endpoint = /*Insert your Watson Tone Service URL here!*/;
 ```
 
-Save this file, then run the following Gradle commands to build the application inside Open Liberty, and then launch the server:
+Save this file, then run the following commands to give yourself permissions to run Gradle, then run the Gradle commands to **build** the application inside **Open Liberty**, and then **launch** the server:
 
 ```
 cd finish
+chmod a+x gradlew
 ./gradlew clean build
 ./gradlew libertyRun
 ```
@@ -108,6 +109,8 @@ not remove any of these.
 
 Now, you can begin writing code to call your Watson Tone Analyser service instance which we created in step 2. We will create one class using CDI, and within this class, we will have four fields, an authentication method (to authenticate with our Watson Tone Analyser instance!), and a method to return a tone analysis of an input string.
 
+You will have a lot of import complains on objects. Simply import these as you go.
+
 Create a class called `Analyser`, in the directory `/src/main/java/io/openliberty/guides/watson/toneanalyser/`.
 
 ```Java
@@ -122,7 +125,7 @@ Create a class called `Analyser`, in the directory `/src/main/java/io/openlibert
 public class Analyser {
 
 	// fields to authenticate with the service
-	private String apiKey = /*Insert your Watson Tone Service API key here!*/
+	private String apiKey = /*Insert your Watson Tone Service API key here!*/;
 	private String version = "2017-09-21";
 	private String endpoint = /*Insert your Watson Tone Service URL here!*/;
 
@@ -404,9 +407,10 @@ The final thing to do, is make the server aware of your servlet and webpage. Thi
 - **servlet-mapping**: This maps a servlet to a URL, by taking the servlet name defined in the **servlet** block, and a url pattern, affixed to the end of the default endpoint. In this case, it's http://localhost:9080/ToneAnalyser/anaylseinput.
 
 ## Step 7 - Building and Running the ApplicationScoped
-The application is now complete, so navigate to the `start/` directory, and execute the following Gradle commands to **build** and **launch** the application on **Open Liberty**:
+The application is now complete, so navigate to the `start/` directory, and execute the following command to give yourself permission to run Gradle, then execute the following Gradle commands to **build** and **launch** the application on **Open Liberty**:
 
 ```
+chmod a+x gradlew
 ./gradlew clean build
 ./gradlew libertyRun
 ```
