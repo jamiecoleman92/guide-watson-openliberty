@@ -44,8 +44,8 @@ Before you can start this tutorial, you need to create an instance of the **Wats
 The fastest way to work through this guide is to clone the Git repository and use the projects that are provided inside:
 
 ```
-git clone https://github.ibm.com/Engagement-Demos/Liberty-Watson-Cloud-Workshop
-cd Liberty-Watson-Cloud-Workshop
+git clone https://github.com/jamiecoleman92/guide-watson-openliberty.git 
+cd guide-watson-openliberty
 ```
 
 The start directory contains the starting project that you will build upon.
